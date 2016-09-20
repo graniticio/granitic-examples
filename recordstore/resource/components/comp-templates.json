@@ -1,0 +1,10 @@
+{
+  "templates": {
+    "handler": {
+      "type": "handler.WsHandler"
+    },
+    "private": {
+      "ct": "handler"
+    }
+  }
+}

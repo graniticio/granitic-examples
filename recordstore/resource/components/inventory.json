@@ -1,0 +1,21 @@
+{
+  "packages": [
+    "github.com/graniticio/granitic/ws/handler",
+    "github.com/graniticio/granitic-examples/recordstore/inventory"
+  ],
+
+  "components": {
+
+    "createRecordLogic": {
+      "type": "inventory.CreateRecordLogic"
+    },
+
+    "createRecordHandler": {
+      "ct": "private",
+      "HTTPMethod": "POST",
+      "Logic": "ref:createRecordLogic",
+      "PathPattern": "^/record$"
+    }
+
+  }
+}
