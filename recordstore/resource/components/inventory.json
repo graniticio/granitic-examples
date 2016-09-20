@@ -14,7 +14,14 @@
       "ct": "private",
       "HTTPMethod": "POST",
       "Logic": "ref:createRecordLogic",
-      "PathPattern": "^/record$"
+      "PathPattern": "^/record$",
+      "AutoValidator": "ref:createRecordValidator"
+    },
+
+    "createRecordValidator": {
+      "ct": "validator",
+      "DefaultErrorCode": "CREATE_RECORD",
+      "Rules": "conf:CreateRecordRules"
     }
 
   }

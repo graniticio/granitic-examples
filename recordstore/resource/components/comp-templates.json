@@ -1,10 +1,20 @@
 {
+  "packages": [
+    "github.com/graniticio/granitic/validate"
+  ],
+
   "templates": {
     "handler": {
       "type": "handler.WsHandler"
     },
+
     "private": {
       "ct": "handler"
+    },
+
+    "validator": {
+      "type": "validate.RuleValidator",
+      "RuleManager": "ref:validationRulesManager"
     }
   }
 }

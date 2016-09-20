@@ -1,4 +1,6 @@
 {
-  "serviceErrors": []
+  "serviceErrors": [
+    ["C", "CREATE_RECORD", "Cannot create a record with the information provided."]
+  ]
 
 }

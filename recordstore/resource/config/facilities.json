@@ -4,5 +4,17 @@
     "JsonWs": true,
     "ServiceErrorManager": true,
     "RuntimeCtl": true
+  },
+
+  "HttpServer": {
+    "Port": 9000,
+    "AccessLogging": true,
+    "AccessLog": {
+      "LogPath": "./access.log",
+      "LogLinePreset": "framework",
+      "UtcTimes": true
+    }
   }
+
+
 }
