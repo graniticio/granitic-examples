@@ -1,6 +1,12 @@
 {
   "serviceErrors": [
-    ["C", "CREATE_RECORD", "Cannot create a record with the information provided."]
+    ["C", "CREATE_RECORD", "Cannot create a record with the information provided."],
+    ["C", "RECORD_NAME", "Record names must be 1-128 characters long."],
+    ["C", "ARTIST_NAME", "Artist names must be 1-64 characters long."],
+    ["C", "TRACK_COUNT", "Records must have between 1 and 100 tracks."],
+    ["C", "TRACK_NAME", "Track names must be 1-64 characters long."],
+    ["C", "CATALOG_REF_MISSING", "You must provide a catalog reference."],
+    ["C", "CATALOG_REF", "Catalog references must be of the form XXX-000000 (three uppercase characters, dash, six numbers."]
   ]
 
 }

@@ -29,7 +29,7 @@ CREATE TABLE track (
 CREATE TABLE record (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cat_ref CHAR(10) NOT NULL UNIQUE,
-    name VARCHAR(64),
+    name VARCHAR(128),
     artist_id INT,
     FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
