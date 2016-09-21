@@ -5,6 +5,7 @@ import (
 	"golang.org/x/net/context"
 	 _ "github.com/go-sql-driver/mysql"
 	"fmt"
+	"github.com/graniticio/granitic/rdbms"
 )
 
 type DBProvider struct {
@@ -29,5 +30,31 @@ func (p *DBProvider) DatabaseFromContext(ctx context.Context) (*sql.DB, error) {
 	return p.Database()
 
 }
+
+func (p *DBProvider) InsertIDFunc() rdbms.InsertWithReturnedID {
+	return MySQLInsertWithId
+}
+
+func MySQLInsertWithId(query string, client *rdbms.RDBMSClient) (int64, error) {
+
+	if r, err := client.Exec(query); err != nil {
+		return 0, err
+	} else {
+		if id, err := r.LastInsertId(); err != nil {
+
+			fmt.Printf("Last ID err %s\n", err)
+
+			return 0, err
+		} else {
+
+			fmt.Printf("Last ID found %d\n", id)
+
+			return id, nil
+		}
+	}
+
+
+}
+
 
 

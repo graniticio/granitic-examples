@@ -3,25 +3,46 @@ package inventory
 import (
 	"golang.org/x/net/context"
 	"github.com/graniticio/granitic/rdbms"
+	"database/sql"
 )
 
 type InventoryDAO struct {
 	DBClientManager rdbms.RDBMSClientManager
 }
 
-func (id *InventoryDAO) RecordExists(ctx context.Context, album, artist string) (bool, error) {
+func (id *InventoryDAO) ArtistExists(ctx context.Context, name string, client ...*rdbms.RDBMSClient) (bool, int64, error) {
 
 	var db *rdbms.RDBMSClient
 	var err error
+	var rows *sql.Rows
 
-	if db, err = id.DBClientManager.ClientFromContext(ctx); err != nil {
-		return false, err
+	if len(client) > 0 {
+		db = client[0]
+	}else if db, err = id.DBClientManager.ClientFromContext(ctx); err != nil {
+		return false, 0,  err
 	}
 
-	db.CommitTransaction()
+	rows, err = db.SelectIDParam("ARTIST_ID_SELECT", "artistName", name)
 
-	return false, nil
+	if rows != nil {
+		defer rows.Close()
+	}
 
+	if err != nil {
+		return false, 0, err
+	} else {
+
+		if rows.Next() {
+
+			var id int64
+			rows.Scan(&id)
+
+			return true, id, nil
+		} else {
+			return false, 0, nil
+		}
+
+	}
 }
 
 func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate) error {
@@ -33,10 +54,27 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 		return err
 	}
 
-	record.ArtistId = 0
+	db.StartTransaction()
+	defer db.Rollback()
 
-	_, err = db.InsertIDTags("ARTIST_INSERT", record)
-	_, err = db.InsertIDTags("RECORD_INSERT", record)
+	if exists, id, err := id.ArtistExists(ctx, record.Artist.String(), db); err != nil {
+		return err
+	} else if exists {
+		record.ArtistId = id
+	} else {
+		if id, err = db.InsertIDTagsAssigned("ARTIST_INSERT", record); err != nil {
+			return err
+		} else {
+			record.ArtistId = id
+		}
+
+	}
+
+	if _, err = db.InsertIDTags("RECORD_INSERT", record); err != nil {
+		return err
+	}
+
+	err = db.CommitTransaction()
 
 	return err
 

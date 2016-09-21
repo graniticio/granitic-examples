@@ -18,7 +18,8 @@ GRANT ALL PRIVILEGES ON recordstore.* TO 'api'@'%';
 
 CREATE TABLE artist (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(64)
+    name VARCHAR(64),
+    UNIQUE(name)
 );
 
 CREATE TABLE track (

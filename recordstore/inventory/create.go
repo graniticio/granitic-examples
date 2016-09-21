@@ -36,7 +36,7 @@ type RecordToCreate struct {
 	CatalogRef *types.NilableString `dbparam:"catRef"`
 	Name *types.NilableString 		`dbparam:"recordName"`
 	Artist *types.NilableString		`dbparam:"artistName"`
-	ArtistId int	`dbparam:"artistID"`
+	ArtistId int64	`dbparam:"artistID"`
 	Tracks []string
 
 }

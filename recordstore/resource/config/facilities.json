@@ -23,7 +23,7 @@
   },
 
   "FrameworkLogger":{
-    "DefaultLogLevel": "DEBUG"
+    "DefaultLogLevel": "INFO"
   }
 
 

@@ -1,3 +1,12 @@
+ID:ARTIST_ID_SELECT
+
+SELECT
+    id
+FROM
+    artist
+WHERE
+    name = '${artistName}'
+
 ID:ARTIST_INSERT
 
 INSERT INTO artist (
