@@ -3,7 +3,6 @@ package inventory
 import (
 	"golang.org/x/net/context"
 	"github.com/graniticio/granitic/rdbms"
-	"fmt"
 )
 
 type InventoryDAO struct {
@@ -34,17 +33,10 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 		return err
 	}
 
-	fmt.Println("Inserting")
+	record.ArtistId = 0
 
-	p := make(map[string]interface{})
-	p["catRef"] = record.CatalogRef
-	p["name"] = record.Name
-
-	//todo
-	p["$artistID"] = 0
-
-
-	_, err = db.InsertQueryIdParamMap("RECORD_INSERT", p)
+	_, err = db.InsertIDTags("ARTIST_INSERT", record)
+	_, err = db.InsertIDTags("RECORD_INSERT", record)
 
 	return err
 

@@ -20,6 +20,10 @@
 
   "RdbmsAccess":{
     "BlockUntilConnected": true
+  },
+
+  "FrameworkLogger":{
+    "DefaultLogLevel": "DEBUG"
   }
 
 

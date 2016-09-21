@@ -33,11 +33,10 @@ func (sl *CreateRecordLogic) Process(ctx context.Context, request *ws.WsRequest,
 
 type RecordToCreate struct {
 
-	CatalogRef *types.NilableString
-	Name *types.NilableString
-	Artist *types.NilableString
+	CatalogRef *types.NilableString `dbparam:"catRef"`
+	Name *types.NilableString 		`dbparam:"recordName"`
+	Artist *types.NilableString		`dbparam:"artistName"`
+	ArtistId int	`dbparam:"artistID"`
 	Tracks []string
 
 }
-
-

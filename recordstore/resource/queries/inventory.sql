@@ -1,3 +1,12 @@
+ID:ARTIST_INSERT
+
+INSERT INTO artist (
+    name
+) VALUES (
+    '${artistName}'
+)
+
+
 ID:RECORD_INSERT
 
 INSERT INTO record (
@@ -5,7 +14,7 @@ INSERT INTO record (
     name,
     artist_id
 ) VALUES (
-    '$catRef',
-    '$name',
-    '$artistID'
+    '${catRef}',
+    '${recordName}',
+    ${artistID}
 )
