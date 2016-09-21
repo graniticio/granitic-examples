@@ -1,3 +1,4 @@
 bindings*
 recordstore
 *.log
+local.json

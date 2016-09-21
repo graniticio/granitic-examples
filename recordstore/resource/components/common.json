@@ -11,7 +11,13 @@
     },
 
     "dbProvider": {
-      "type": "database.DBProvider"
+      "type": "database.DBProvider",
+      "User": "conf:database.user",
+      "Password": "conf:database.password",
+      "Host": "conf:database.host",
+      "Port": "conf:database.port",
+      "DBName": "conf:database.dbName"
     }
+
   }
 }

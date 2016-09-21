@@ -9,6 +9,7 @@ import (
 
 type CreateRecordLogic struct {
 	Log logging.Logger
+	DAO *InventoryDAO
 }
 
 func (sl *CreateRecordLogic) UnmarshallTarget() interface{} {
@@ -20,6 +21,12 @@ func (sl *CreateRecordLogic) Process(ctx context.Context, request *ws.WsRequest,
 	r := request.RequestBody.(*RecordToCreate)
 
 	sl.Log.LogInfof("'%s'/'%s' tracks(%d)", r.Name, r.Artist, len(r.Tracks))
+
+	if err := sl.DAO.CreateRecord(ctx, r); err != nil {
+
+		sl.Log.LogErrorfCtx(ctx, err.Error())
+
+	}
 
 
 }

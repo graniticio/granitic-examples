@@ -16,6 +16,10 @@
       "LogLinePreset": "framework",
       "UtcTimes": true
     }
+  },
+
+  "RdbmsAccess":{
+    "BlockUntilConnected": true
   }
 
 
