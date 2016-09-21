@@ -3,7 +3,9 @@
     "HttpServer": true,
     "JsonWs": true,
     "ServiceErrorManager": true,
-    "RuntimeCtl": true
+    "RuntimeCtl": true,
+    "RdbmsAccess": true,
+    "QueryManager": true
   },
 
   "HttpServer": {

@@ -1,12 +1,17 @@
 {
   "packages": [
-    "github.com/graniticio/granitic/validate"
+    "github.com/graniticio/granitic/validate",
+    "github.com/graniticio/granitic-examples/recordstore/database"
   ],
 
   "components": {
     "validationRulesManager": {
       "type": "validate.UnparsedRuleManager",
       "Rules": "conf:SharedRules"
+    },
+
+    "dbProvider": {
+      "type": "database.DBProvider"
     }
   }
 }
