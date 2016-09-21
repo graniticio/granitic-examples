@@ -22,11 +22,6 @@ CREATE TABLE artist (
     UNIQUE(name)
 );
 
-CREATE TABLE track (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(64)
-);
-
 CREATE TABLE record (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cat_ref CHAR(10) NOT NULL UNIQUE,
@@ -56,12 +51,11 @@ CREATE TABLE record_format_price (
 
 
 CREATE TABLE record_track (
-    track_id INT,
     record_id INT,
     track_number INT,
-    FOREIGN KEY (track_id) REFERENCES track(id),
+    name VARCHAR(64),
     FOREIGN KEY (record_id) REFERENCES record(id),
-    UNIQUE (track_id, record_id, track_number)
+    UNIQUE (record_id, track_number)
 );
 
 CREATE TABLE stock (

@@ -27,3 +27,16 @@ INSERT INTO record (
     '${recordName}',
     ${artistID}
 )
+
+ID:TRACK_INSERT
+
+INSERT INTO record_track (
+    record_id,
+    track_number,
+    name
+) VALUES (
+    ${recordId},
+    ${trackNumber},
+    '${name}'
+)
+
