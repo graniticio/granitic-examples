@@ -9,6 +9,18 @@ type InventoryDAO struct {
 	DBClientManager rdbms.RDBMSClientManager
 }
 
+func (id *InventoryDAO) CatRefInUse(ctx context.Context, catRef string) (bool, error) {
+	if db, err := id.DBClientManager.ClientFromContext(ctx); err != nil {
+		return false, err
+	} else {
+
+		var recordId int64
+
+		return db.SelectIDParamSingleResult("CAT_REF_SELECT", "catRef", catRef, &recordId)
+
+	}
+}
+
 func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate) error {
 
 	var db *rdbms.RDBMSClient

@@ -40,3 +40,13 @@ INSERT INTO record_track (
     '${name}'
 )
 
+ID:CAT_REF_SELECT
+
+SELECT
+    id
+FROM
+    record
+WHERE
+    cat_ref = '${catRef}'
+
+

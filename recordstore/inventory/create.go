@@ -28,6 +28,18 @@ func (sl *CreateRecordLogic) Process(ctx context.Context, request *ws.WsRequest,
 
 	}
 
+}
+
+func (sl *CreateRecordLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest){
+	r := request.RequestBody.(*RecordToCreate)
+
+    if found, err := sl.DAO.CatRefInUse(ctx, r.CatalogRef.String()); err != nil {
+		sl.Log.LogErrorfCtx(ctx, err.Error())
+		errors.AddPredefinedError("UNEX")
+
+	} else if found {
+		errors.AddPredefinedError("CATALOG_REF_IN_USE")
+	}
 
 }
 
