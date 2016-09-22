@@ -5,6 +5,9 @@ import (
 	"github.com/graniticio/granitic/ws"
 	"github.com/graniticio/granitic/logging"
 	"github.com/graniticio/granitic/types"
+	"time"
+	"strconv"
+	"fmt"
 )
 
 type CreateRecordLogic struct {
@@ -20,14 +23,10 @@ func (sl *CreateRecordLogic) Process(ctx context.Context, request *ws.WsRequest,
 
 	r := request.RequestBody.(*RecordToCreate)
 
-	sl.Log.LogInfof("'%s'/'%s' tracks(%d)", r.Name, r.Artist, len(r.Tracks))
-
 	if err := sl.DAO.CreateRecord(ctx, r); err != nil {
 
 		sl.Log.LogErrorfCtx(ctx, err.Error())
-
 	}
-
 }
 
 func (sl *CreateRecordLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest){

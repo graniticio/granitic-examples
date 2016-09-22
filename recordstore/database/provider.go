@@ -14,14 +14,25 @@ type DBProvider struct {
 	Host string
 	Port int
 	DBName string
+	openDB *sql.DB
 
 }
 
 func (p *DBProvider) Database() (*sql.DB, error) {
 
+	if p.openDB != nil {
+		return p.openDB, nil
+	}
+
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", p.User, p.Password, p.Host, p.Port, p.DBName)
 
-	return sql.Open("mysql", dsn)
+	if db ,err :=  sql.Open("mysql", dsn); err != nil {
+		return nil, err
+	} else {
+		p.openDB = db
+
+		return p.openDB, nil
+	}
 }
 
 func (p *DBProvider) DatabaseFromContext(ctx context.Context) (*sql.DB, error) {

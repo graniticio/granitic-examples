@@ -16,7 +16,7 @@ func (id *InventoryDAO) CatRefInUse(ctx context.Context, catRef string) (bool, e
 
 		var recordId int64
 
-		return db.SelectIDParamSingleResult("CAT_REF_SELECT", "catRef", catRef, &recordId)
+		return db.SelectSingleResultQIDParam("CAT_REF_SELECT", "catRef", catRef, &recordId)
 
 	}
 }
@@ -33,13 +33,13 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 	db.StartTransaction()
 	defer db.Rollback()
 
-	if err := db.FlowExistingIDOrInsertTags("ARTIST_ID_SELECT", "ARTIST_INSERT", &record.ArtistId, record); err != nil {
+	if err := db.ExistingIDOrInsertTags("ARTIST_ID_SELECT", "ARTIST_INSERT", &record.ArtistId, record); err != nil {
 		return err
 	}
 
 	var recordId int64
 
-	if err = db.InsertIDTagsAssigned("RECORD_INSERT", record, &recordId); err != nil {
+	if err = db.InsertCaptureQIDTags("RECORD_INSERT", record, &recordId); err != nil {
 		return err
 	}
 
@@ -47,7 +47,7 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 
 		t := recordTrack{recordId, name, i+1}
 
-		if _, err := db.InsertIDTags("TRACK_INSERT", t); err != nil {
+		if _, err := db.InsertQIDTags("TRACK_INSERT", t); err != nil {
 			return err
 		}
 
