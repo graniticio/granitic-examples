@@ -22,11 +22,32 @@
     "createRecordValidator": {
       "ct": "validator",
       "DefaultErrorCode": "CREATE_RECORD",
-      "Rules": "conf:CreateRecordRules"
+      "Rules": "conf:createRecordRules"
     },
 
     "inventoryDAO": {
       "type": "inventory.InventoryDAO"
+    },
+
+
+    "searchLogic": {
+      "type": "inventory.SearchLogic"
+    },
+
+    "searchHandler": {
+      "ct": "public",
+      "HTTPMethod": "GET",
+      "Logic": "ref:searchLogic",
+      "PathPattern": "^/search/([A-Za-z]+)[/]?$",
+      "AutoValidator": "ref:searchValidator",
+      "BindPathParams": ["Mode"],
+      "AutoBindQuery": true
+    },
+
+    "searchValidator": {
+      "ct": "validator",
+      "DefaultErrorCode": "SEARCH",
+      "Rules": "conf:searchRules"
     }
 
   }

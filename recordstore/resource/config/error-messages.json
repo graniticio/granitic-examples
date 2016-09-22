@@ -8,7 +8,11 @@
     ["C", "CATALOG_REF_MISSING", "You must provide a catalog reference."],
     ["C", "CATALOG_REF", "Catalog references must be of the form XXX-000000 (three uppercase characters, dash, six numbers."],
     ["U", "UNEX", "An unexpected and unrecoverable error occured while processing your request"],
-    ["C", "CATALOG_REF_IN_USE", "A record already exists with that catalog reference."]
+    ["C", "CATALOG_REF_IN_USE", "A record already exists with that catalog reference."],
+    ["C", "SEARCH", "Your search request could not be processed."],
+    ["C", "SEARCH_MODE", "Search mode is either record or artist."],
+    ["C", "UNKNOWN_FORMAT", "Format must be CD, LP or DOWNLOAD"],
+    ["C", "ARTIST_FORMAT", "Format should only be specified for record searches."]
   ]
 
 }

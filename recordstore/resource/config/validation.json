@@ -3,10 +3,15 @@
     "trackName": ["STR:TRACK_NAME", "HARDTRIM", "LEN:1-64"]
   },
 
-  "CreateRecordRules": [
+  "createRecordRules": [
     ["CatalogRef", "STR", "REQ:CATALOG_REF_MISSING", "HARDTRIM", "BREAK", "REG:^[A-Z]{3}-[\\d]{6}$:CATALOG_REF"],
     ["Name", "STR:RECORD_NAME", "REQ", "HARDTRIM", "LEN:1-128"],
     ["Artist", "STR:ARTIST_NAME", "REQ", "HARDTRIM", "LEN:1-64"],
     ["Tracks", "SLICE:TRACK_COUNT", "LEN:1-100", "ELEM:trackName"]
+  ],
+  "searchRules": [
+    ["Mode", "STR", "REQ", "IN:record,artist:SEARCH_MODE"],
+    ["Format", "STR", "IN:LP,CD,DOWNLOAD:UNKNOWN_FORMAT"]
   ]
+
 }

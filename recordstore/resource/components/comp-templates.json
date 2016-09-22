@@ -12,6 +12,10 @@
       "ct": "handler"
     },
 
+    "public": {
+      "ct": "handler"
+    },
+
     "validator": {
       "type": "validate.RuleValidator",
       "RuleManager": "ref:validationRulesManager"
