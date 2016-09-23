@@ -31,6 +31,10 @@ func (p *DBProvider) Database() (*sql.DB, error) {
 	} else {
 		p.openDB = db
 
+		p.openDB.SetConnMaxLifetime(-1)
+		p.openDB.SetMaxIdleConns(10)
+		p.openDB.SetMaxOpenConns(10)
+
 		return p.openDB, nil
 	}
 }

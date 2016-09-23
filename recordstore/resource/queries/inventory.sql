@@ -50,3 +50,24 @@ WHERE
     cat_ref = '${catRef}'
 
 
+ID:ARTIST_SEARCH_BASE
+
+SELECT
+    id AS ID,
+    name as Name
+FROM
+    artist
+
+
+ID:ARTIST_DETAIL
+
+SELECT
+    name
+FROM
+    artist
+WHERE
+    id = ${id}
+
+
+
+

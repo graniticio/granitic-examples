@@ -16,7 +16,7 @@ func (id *InventoryDAO) CatRefInUse(ctx context.Context, catRef string) (bool, e
 
 		var recordId int64
 
-		return db.SelectSingleResultQIDParam("CAT_REF_SELECT", "catRef", catRef, &recordId)
+		return db.SelectBindSingleQIDParam("CAT_REF_SELECT", "catRef", catRef, &recordId)
 
 	}
 }
@@ -57,6 +57,51 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 
 	return err
 
+}
+
+func (id *InventoryDAO) ArtistSearch(ctx context.Context, sp *SearchParams) ([]*ArtistSearchResult, error) {
+
+	if db, err := id.DBClientManager.ClientFromContext(ctx); err != nil {
+		return nil, err
+	} else {
+
+		ar := new(ArtistSearchResult)
+
+		if r, err := db.SelectBindQIDParams("ARTIST_SEARCH_BASE", make(map[string]interface{}), ar); err != nil {
+			return nil, err
+		} else {
+			return id.artistResults(r), nil
+		}
+	}
+
+}
+
+func (id *InventoryDAO) ArtistDetail(ctx context.Context, rid *resourceId) (*ArtistDetail, error){
+
+	if db, err := id.DBClientManager.ClientFromContext(ctx); err != nil {
+		return nil, err
+	} else {
+
+		ad := new(ArtistDetail)
+
+		 if found, err := db.SelectBindSingleQIDTags("ARTIST_DETAIL", rid, ad); found {
+			 return ad, err
+		 } else {
+			 return nil, err
+		 }
+	}
+
+}
+
+func (id *InventoryDAO) artistResults(is []interface{}) []*ArtistSearchResult {
+
+	ar := make([]*ArtistSearchResult, len(is))
+
+	for i, v := range is {
+		ar[i] = v.(*ArtistSearchResult)
+	}
+
+	return ar
 }
 
 type recordTrack struct {

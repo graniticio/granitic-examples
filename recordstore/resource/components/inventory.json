@@ -31,7 +31,8 @@
 
 
     "searchLogic": {
-      "type": "inventory.SearchLogic"
+      "type": "inventory.SearchLogic",
+      "DAO": "ref:inventoryDAO"
     },
 
     "searchHandler": {
@@ -48,7 +49,19 @@
       "ct": "validator",
       "DefaultErrorCode": "SEARCH",
       "Rules": "conf:searchRules"
-    }
+    },
 
+    "artistLogic": {
+      "type": "inventory.ArtistLogic",
+      "DAO": "ref:inventoryDAO"
+    },
+
+    "artistHandler": {
+      "ct": "public",
+      "HTTPMethod": "GET",
+      "Logic": "ref:artistLogic",
+      "PathPattern": "^/artist/([\\d]+)[/]?$",
+      "BindPathParams": ["ID"]
+    }
   }
 }
