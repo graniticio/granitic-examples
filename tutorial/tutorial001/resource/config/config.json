@@ -1,0 +1,6 @@
+{
+	"Facilities": {
+		"HttpServer": true,
+    	"JsonWs": true
+	}
+}

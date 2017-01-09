@@ -1,0 +1,19 @@
+{
+	"packages": [
+		"github.com/graniticio/granitic/ws/handler",
+		"github.com/graniticio/granitic-examples/tutorial/tutorial001/endpoint"
+	],
+
+	"components": {
+		"artistLogic": {
+			"type": "endpoint.ArtistLogic"
+		},
+
+		"artistHandler": {
+			"type": "handler.WsHandler",
+			"HTTPMethod": "GET",
+			"Logic": "ref:artistLogic",
+			"PathPattern": "^/artist"
+		}
+	}
+}
