@@ -40,9 +40,7 @@ func (p *DBProvider) Database() (*sql.DB, error) {
 }
 
 func (p *DBProvider) DatabaseFromContext(ctx context.Context) (*sql.DB, error) {
-
 	return p.Database()
-
 }
 
 func (p *DBProvider) InsertIDFunc() rdbms.InsertWithReturnedID {
