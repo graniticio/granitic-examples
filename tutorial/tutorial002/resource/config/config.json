@@ -2,5 +2,8 @@
 	"Facilities": {
 		"HttpServer": true,
     	"JsonWs": true
+	},
+	"environment": {
+		"label": "UNSET"
 	}
 }
