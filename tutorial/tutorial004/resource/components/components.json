@@ -1,0 +1,20 @@
+{
+	"packages": [
+		"github.com/graniticio/granitic/ws/handler",
+		"granitic-tutorial/recordstore/endpoint"
+	],
+
+	"components": {
+		"artistLogic": {
+			"type": "endpoint.ArtistLogic",
+			"EnvLabel": "conf:environment.label"
+		},
+
+		"artistHandler": {
+			"type": "handler.WsHandler",
+			"HTTPMethod": "GET",
+			"Logic": "ref:artistLogic",
+			"PathPattern": "^/artist"
+		}
+	}
+}

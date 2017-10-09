@@ -1,0 +1,18 @@
+{
+	"Facilities": {
+		"HttpServer": true,
+		"JsonWs": true,
+		"RuntimeCtl": true
+	},
+
+	"ApplicationLogger":{
+		"GlobalLogLevel": "ERROR",
+		"ComponentLogLevels": {
+			"artistLogic": "TRACE"
+		}
+	},
+
+	"environment": {
+		"label": "UNSET"
+	}
+}
