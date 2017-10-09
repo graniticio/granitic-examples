@@ -1,10 +1,10 @@
 package inventory
 
 import (
-	"golang.org/x/net/context"
-	"github.com/graniticio/granitic/ws"
-	"github.com/graniticio/granitic/types"
 	"github.com/graniticio/granitic/logging"
+	"github.com/graniticio/granitic/types"
+	"github.com/graniticio/granitic/ws"
+	"golang.org/x/net/context"
 	"net/http"
 )
 
@@ -29,12 +29,9 @@ func (al *ArtistLogic) Process(ctx context.Context, request *ws.WsRequest, respo
 	}
 }
 
-
 func (al *ArtistLogic) UnmarshallTarget() interface{} {
 	return new(resourceId)
 }
-
-
 
 type resourceId struct {
 	ID *types.NilableInt64 `dbparam:"id"`

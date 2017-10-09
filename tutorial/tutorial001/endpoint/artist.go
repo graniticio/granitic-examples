@@ -1,8 +1,8 @@
 package endpoint
 
 import (
-	"github.com/graniticio/granitic/ws"
 	"context"
+	"github.com/graniticio/granitic/ws"
 )
 
 type ArtistLogic struct {

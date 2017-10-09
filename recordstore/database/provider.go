@@ -2,20 +2,19 @@ package database
 
 import (
 	"database/sql"
-	"golang.org/x/net/context"
-	 _ "github.com/go-sql-driver/mysql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/graniticio/granitic/rdbms"
+	"golang.org/x/net/context"
 )
 
 type DBProvider struct {
-	User string
+	User     string
 	Password string
-	Host string
-	Port int
-	DBName string
-	openDB *sql.DB
-
+	Host     string
+	Port     int
+	DBName   string
+	openDB   *sql.DB
 }
 
 func (p *DBProvider) Database() (*sql.DB, error) {
@@ -26,7 +25,7 @@ func (p *DBProvider) Database() (*sql.DB, error) {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", p.User, p.Password, p.Host, p.Port, p.DBName)
 
-	if db ,err :=  sql.Open("mysql", dsn); err != nil {
+	if db, err := sql.Open("mysql", dsn); err != nil {
 		return nil, err
 	} else {
 		p.openDB = db
@@ -46,8 +45,3 @@ func (p *DBProvider) DatabaseFromContext(ctx context.Context) (*sql.DB, error) {
 func (p *DBProvider) InsertIDFunc() rdbms.InsertWithReturnedID {
 	return rdbms.DefaultInsertWithReturnedID
 }
-
-
-
-
-

@@ -5,8 +5,8 @@
 		"RuntimeCtl": true
 	},
 
-	"ApplicationLogger":{
-		"GlobalLogLevel": "ERROR",
+	"ApplicationLogger": {
+		"GlobalLogLevel": "INFO",
 		"ComponentLogLevels": {
 			"artistLogic": "TRACE"
 		}

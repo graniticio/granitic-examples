@@ -1,10 +1,10 @@
 package inventory
 
 import (
-	"golang.org/x/net/context"
-	"github.com/graniticio/granitic/ws"
 	"github.com/graniticio/granitic/logging"
 	"github.com/graniticio/granitic/types"
+	"github.com/graniticio/granitic/ws"
+	"golang.org/x/net/context"
 )
 
 type CreateRecordLogic struct {
@@ -26,10 +26,10 @@ func (sl *CreateRecordLogic) Process(ctx context.Context, request *ws.WsRequest,
 	}
 }
 
-func (sl *CreateRecordLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest){
+func (sl *CreateRecordLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest) {
 	r := request.RequestBody.(*RecordToCreate)
 
-    if found, err := sl.DAO.CatRefInUse(ctx, r.CatalogRef.String()); err != nil {
+	if found, err := sl.DAO.CatRefInUse(ctx, r.CatalogRef.String()); err != nil {
 		sl.Log.LogErrorfCtx(ctx, err.Error())
 		errors.AddPredefinedError("UNEX")
 
@@ -40,11 +40,9 @@ func (sl *CreateRecordLogic) Validate(ctx context.Context, errors *ws.ServiceErr
 }
 
 type RecordToCreate struct {
-
 	CatalogRef *types.NilableString `dbparam:"catRef"`
-	Name *types.NilableString 		`dbparam:"recordName"`
-	Artist *types.NilableString		`dbparam:"artistName"`
-	ArtistId int64	`dbparam:"artistID"`
-	Tracks []string
-
+	Name       *types.NilableString `dbparam:"recordName"`
+	Artist     *types.NilableString `dbparam:"artistName"`
+	ArtistId   int64                `dbparam:"artistID"`
+	Tracks     []string
 }

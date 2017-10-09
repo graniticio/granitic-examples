@@ -1,8 +1,8 @@
 package inventory
 
 import (
-	"golang.org/x/net/context"
 	"github.com/graniticio/granitic/rdbms"
+	"golang.org/x/net/context"
 )
 
 type InventoryDAO struct {
@@ -45,7 +45,7 @@ func (id *InventoryDAO) CreateRecord(ctx context.Context, record *RecordToCreate
 
 	for i, name := range record.Tracks {
 
-		t := recordTrack{recordId, name, i+1}
+		t := recordTrack{recordId, name, i + 1}
 
 		if _, err := db.InsertQIDTags("TRACK_INSERT", t); err != nil {
 			return err
@@ -76,7 +76,7 @@ func (id *InventoryDAO) ArtistSearch(ctx context.Context, sp *SearchParams) ([]*
 
 }
 
-func (id *InventoryDAO) ArtistDetail(ctx context.Context, rid *resourceId) (*ArtistDetail, error){
+func (id *InventoryDAO) ArtistDetail(ctx context.Context, rid *resourceId) (*ArtistDetail, error) {
 
 	if db, err := id.DBClientManager.ClientFromContext(ctx); err != nil {
 		return nil, err
@@ -84,11 +84,11 @@ func (id *InventoryDAO) ArtistDetail(ctx context.Context, rid *resourceId) (*Art
 
 		ad := new(ArtistDetail)
 
-		 if found, err := db.SelectBindSingleQIDTags("ARTIST_DETAIL", rid, ad); found {
-			 return ad, err
-		 } else {
-			 return nil, err
-		 }
+		if found, err := db.SelectBindSingleQIDTags("ARTIST_DETAIL", rid, ad); found {
+			return ad, err
+		} else {
+			return nil, err
+		}
 	}
 
 }
@@ -105,10 +105,7 @@ func (id *InventoryDAO) artistResults(is []interface{}) []*ArtistSearchResult {
 }
 
 type recordTrack struct {
-
-	RecordId int64 `dbparam:"recordId"`
+	RecordId int64  `dbparam:"recordId"`
 	Name     string `dbparam:"name"`
-	Number   int `dbparam:"trackNumber"`
-
+	Number   int    `dbparam:"trackNumber"`
 }
-

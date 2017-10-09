@@ -14,7 +14,21 @@
 			"type": "handler.WsHandler",
 			"HTTPMethod": "GET",
 			"Logic": "ref:artistLogic",
-			"PathPattern": "^/artist"
+			"PathPattern": "^/artist/([\\d]+)[/]?$",
+			"BindPathParams": ["Id"],
+			"FieldQueryParam": {
+				"NormaliseName": "normalise"
+			}
+		},
+
+		"submitArtistLogic": {
+			"type": "endpoint.SubmitArtistLogic"
+		},
+		"submitArtistHandler": {
+			"type": "handler.WsHandler",
+			"HTTPMethod": "POST",
+			"Logic": "ref:submitArtistLogic",
+			"PathPattern": "^/artist[/]?$"
 		}
 	}
 }

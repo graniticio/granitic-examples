@@ -1,10 +1,10 @@
 package inventory
 
 import (
-	"golang.org/x/net/context"
-	"github.com/graniticio/granitic/ws"
-	"github.com/graniticio/granitic/types"
 	"github.com/graniticio/granitic/logging"
+	"github.com/graniticio/granitic/types"
+	"github.com/graniticio/granitic/ws"
+	"golang.org/x/net/context"
 )
 
 type SearchLogic struct {
@@ -24,15 +24,12 @@ func (sl *SearchLogic) Process(ctx context.Context, request *ws.WsRequest, respo
 	}
 }
 
-
 func (sl *SearchLogic) UnmarshallTarget() interface{} {
 	return new(SearchParams)
 }
 
-
-func (sl *SearchLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest){
+func (sl *SearchLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, request *ws.WsRequest) {
 	sp := request.RequestBody.(*SearchParams)
-
 
 	if sp.Mode.String() == "artist" {
 
@@ -42,19 +39,16 @@ func (sl *SearchLogic) Validate(ctx context.Context, errors *ws.ServiceErrors, r
 
 	}
 
-
 }
 
 type SearchParams struct {
-	Mode *types.NilableString
+	Mode   *types.NilableString
 	Format *types.NilableString
 }
 
 type ArtistSearchResult struct {
-
-	Name *types.NilableString
-	ID *types.NilableInt64
-	Active *types.NilableBool
+	Name      *types.NilableString
+	ID        *types.NilableInt64
+	Active    *types.NilableBool
 	Weighting float64
-
 }
