@@ -1,0 +1,41 @@
+{
+	"packages": [
+		"github.com/graniticio/granitic/ws/handler",
+		"granitic-tutorial/recordstore/endpoint",
+		"github.com/graniticio/granitic/validate"
+	],
+
+	"components": {
+		"artistLogic": {
+			"type": "endpoint.ArtistLogic",
+			"EnvLabel": "conf:environment.label"
+		},
+
+		"artistHandler": {
+			"type": "handler.WsHandler",
+			"HTTPMethod": "GET",
+			"Logic": "ref:artistLogic",
+			"PathPattern": "^/artist/([\\d]+)[/]?$",
+			"BindPathParams": ["Id"],
+			"FieldQueryParam": {
+				"NormaliseName": "normalise"
+			}
+		},
+
+		"submitArtistLogic": {
+			"type": "endpoint.SubmitArtistLogic"
+		},
+		"submitArtistHandler": {
+			"type": "handler.WsHandler",
+			"HTTPMethod": "POST",
+			"Logic": "ref:submitArtistLogic",
+			"PathPattern": "^/artist[/]?$",
+			"AutoValidator": "ref:submitArtistValidator"
+		},
+		"submitArtistValidator": {
+			"type": "validate.RuleValidator",
+			"DefaultErrorCode": "INVALID_ARTIST",
+			"Rules": "conf:submitArtistRules"
+		}
+	}
+}
