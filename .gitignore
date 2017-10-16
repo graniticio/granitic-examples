@@ -3,4 +3,5 @@
 *.iml
 bindings/
 recordstore
+.DS_Store
 
