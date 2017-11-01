@@ -7,6 +7,7 @@ import (
 	"github.com/graniticio/granitic/ws"
 	"github.com/graniticio/granitic/rdbms"
 	"net/http"
+
 )
 
 type ArtistLogic struct {
@@ -14,21 +15,32 @@ type ArtistLogic struct {
 	Log      logging.Logger
 	DbClientManager rdbms.RdbmsClientManager
 }
+
 func (al *ArtistLogic) Process(ctx context.Context, req *ws.WsRequest, res *ws.WsResponse) {
 	ar := req.RequestBody.(*ArtistRequest)
-	l := al.Log
-	l.LogTracef("Request for artist with ID %d", ar.Id)
-	result := new(ArtistDetail)
+
+	// Obtain an RdmsClient from the rdbms.RdbmsClientManager injected into this component
 	dbc, _ := al.DbClientManager.Client()
-	if found, err := dbc.SelectBindSingleQIDParams("ARTIST_BY_ID", result, ar); found {
+
+	// Create a new object to store the results of our database call
+	result := new(ArtistDetail)
+
+	// Call the database and populate our object
+	if found, err := dbc.SelectBindSingleQIdParams("ARTIST_BY_ID", result, ar); found {
+		// Make our result object the body of the HTTP response we'll send
 		res.Body = result
+
 	} else if err != nil{
-		l.LogErrorf(err.Error())
+		// Something went wrong when communicating with the database - return HTTP 500
+		al.Log.LogErrorf(err.Error())
 		res.HttpStatus = http.StatusInternalServerError
+
 	} else {
+		// No results were returned by the database call - return HTTP 404
 		res.HttpStatus = http.StatusNotFound
 	}
 }
+
 func (al *ArtistLogic) UnmarshallTarget() interface{} {
 	return new(ArtistRequest)
 }

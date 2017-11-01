@@ -12,7 +12,7 @@
 
 		"artistHandler": {
 			"type": "handler.WsHandler",
-			"HTTPMethod": "GET",
+			"HttpMethod": "GET",
 			"Logic": "ref:artistLogic",
 			"PathPattern": "^/artist"
 		}

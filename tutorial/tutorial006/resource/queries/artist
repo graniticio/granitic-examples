@@ -1,4 +1,5 @@
 ID:ARTIST_BY_ID
+
 SELECT
   name AS Name
 FROM

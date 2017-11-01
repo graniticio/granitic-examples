@@ -13,7 +13,7 @@
 
 		"artistHandler": {
 			"type": "handler.WsHandler",
-			"HTTPMethod": "GET",
+			"HttpMethod": "GET",
 			"Logic": "ref:artistLogic",
 			"PathPattern": "^/artist/([\\d]+)[/]?$",
 			"BindPathParams": ["Id"],
@@ -27,7 +27,7 @@
 		},
 		"submitArtistHandler": {
 			"type": "handler.WsHandler",
-			"HTTPMethod": "POST",
+			"HttpMethod": "POST",
 			"Logic": "ref:submitArtistLogic",
 			"PathPattern": "^/artist[/]?$",
 			"AutoValidator": "ref:submitArtistValidator"
