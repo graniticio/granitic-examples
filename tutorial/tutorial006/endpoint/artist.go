@@ -78,4 +78,5 @@ func (sal *SubmitArtistLogic) UnmarshallTarget() interface{} {
 type SubmittedArtistRequest struct {
 	Name            *types.NilableString
 	FirstYearActive *types.NilableInt64
+	RelatedArtists []int64
 }
