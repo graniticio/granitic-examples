@@ -1,0 +1,30 @@
+ID:ARTIST_BY_ID
+
+SELECT
+  name AS Name
+FROM
+  artist
+WHERE
+  id = ${Id}
+
+
+ID:CREATE_ARTIST
+
+INSERT INTO artist(
+  name,
+  first_active
+) VALUES (
+  ${!Name},
+  ${FirstYearActive}
+)
+
+ID:RELATE_ARTIST
+
+INSERT INTO related_artist(
+  artist_id,
+  related_artist_id
+) VALUES (
+  ${!ArtistId},
+  ${!RelatedArtistId}
+)
+

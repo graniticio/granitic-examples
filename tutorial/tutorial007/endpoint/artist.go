@@ -56,18 +56,57 @@ type ArtistRequest struct {
 
 type SubmitArtistLogic struct {
 	Log logging.Logger
+	DbClientManager rdbms.RdbmsClientManager
 }
 
 func (sal *SubmitArtistLogic) Process(ctx context.Context, req *ws.WsRequest, res *ws.WsResponse) {
 
 	sar := req.RequestBody.(*SubmittedArtistRequest)
 
-	sal.Log.LogInfof("New artist %s", sar.Name)
+	// Obtain an RdmsClient from the rdbms.RdbmsClientManager injected into this component
+	dbc, _ := sal.DbClientManager.Client()
+	defer dbc.Rollback()
 
-	//Hardcoded 'ID' of newly created artist - just a placeholder
+	// Start a database transaction
+	dbc.StartTransaction()
+
+	// Declare a variable to capture the ID of the newly inserted artist
+	var id int64
+
+	// Execute the insert, storing the generated ID in our variable
+	if err := dbc.InsertCaptureQIdParams("CREATE_ARTIST", &id, sar); err != nil {
+		// Something went wrong when communicating with the database - return HTTP 500
+		sal.Log.LogErrorf(err.Error())
+		res.HttpStatus = http.StatusInternalServerError
+
+		return
+
+	}
+
+	// Insert a row for each related artist
+	params := make(map[string]interface{})
+	params["ArtistId"] = id
+
+	for _, raId := range sar.RelatedArtists {
+		params["RelatedArtistId"] = raId
+
+		if _, err := dbc.InsertQIdParams("RELATE_ARTIST", params); err != nil {
+			// Something went wrong inserting the relationship
+			sal.Log.LogErrorf(err.Error())
+			res.HttpStatus = http.StatusInternalServerError
+
+			return
+		}
+
+	}
+
+	// Commit the transaction
+	dbc.CommitTransaction()
+
+	// Use the new ID as the HTTP response, wrapped in a struct
 	res.Body = struct {
-		Id int
-	}{0}
+		Id int64
+	}{id}
 
 }
 
@@ -78,4 +117,5 @@ func (sal *SubmitArtistLogic) UnmarshallTarget() interface{} {
 type SubmittedArtistRequest struct {
 	Name            *types.NilableString
 	FirstYearActive *types.NilableInt64
+	RelatedArtists []int64
 }
